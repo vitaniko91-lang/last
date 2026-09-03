@@ -1,0 +1,49 @@
+// cases/last/scripts/audit/lib/report.test.mjs
+import { describe, it, expect } from 'vitest'
+import { renderAuditTable } from './report.mjs'
+
+const shops = [
+  {
+    name: 'Shop One',
+    metrics: {
+      stepsToKit: 7, hasMaterialFinder: false, knowledgeDecisions: 3,
+      repeatOrderClicks: 5, mobileOverflow: true, tapTargetFails: 12, lcpMs: 3400,
+    },
+  },
+  {
+    name: 'Shop Two',
+    metrics: {
+      stepsToKit: 5, hasMaterialFinder: true, knowledgeDecisions: 1,
+      repeatOrderClicks: null, mobileOverflow: false, tapTargetFails: 0, lcpMs: 1900,
+    },
+  },
+]
+
+describe('renderAuditTable', () => {
+  it('печатает имена магазинов во внутренней версии', () => {
+    const md = renderAuditTable(shops)
+    expect(md).toContain('Shop One')
+    expect(md).toContain('Shop Two')
+  })
+
+  it('заменяет имена буквами в публичной версии', () => {
+    const md = renderAuditTable(shops, { anonymise: true })
+    expect(md).not.toContain('Shop One')
+    expect(md).toContain('Магазин A')
+    expect(md).toContain('Магазин B')
+  })
+
+  it('переводит булевы значения в да/нет', () => {
+    const md = renderAuditTable(shops)
+    expect(md).toContain('| Подбор по материалу | нет | да |')
+  })
+
+  it('ставит прочерк там, где метрика не снята', () => {
+    const md = renderAuditTable(shops)
+    expect(md).toContain('| Кликов до повторного заказа | 5 | — |')
+  })
+
+  it('выдаёт строку на каждую из семи метрик плюс шапку и разделитель', () => {
+    expect(renderAuditTable(shops).split('\n')).toHaveLength(9)
+  })
+})
