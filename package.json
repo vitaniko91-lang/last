@@ -1,0 +1,16 @@
+{
+  "name": "last",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "audit:measure": "node scripts/audit/measure.mjs",
+    "audit:report": "node scripts/audit/build-report.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.56.0",
+    "vitest": "^3.2.4"
+  }
+}
