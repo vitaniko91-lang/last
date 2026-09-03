@@ -32,4 +32,24 @@ describe('isMeasurable', () => {
     expect(r.ok).toBe(true)
     expect(r.warnings).toContain('window not focused')
   })
+
+  it('держит порог: 29 не проходит, 30 проходит', () => {
+    expect(isMeasurable({ fps: 29, visibilityState: 'visible', hasFocus: true }).ok).toBe(false)
+    expect(isMeasurable({ fps: 30, visibilityState: 'visible', hasFocus: true }).ok).toBe(true)
+  })
+
+  it('блокирует нефизичный fps', () => {
+    expect(isMeasurable({ fps: Infinity, visibilityState: 'visible', hasFocus: true }).ok).toBe(false)
+    expect(isMeasurable({ fps: 1e9, visibilityState: 'visible', hasFocus: true }).ok).toBe(false)
+  })
+
+  it('блокирует fps не числом', () => {
+    expect(isMeasurable({ fps: '60', visibilityState: 'visible', hasFocus: true }).ok).toBe(false)
+  })
+
+  it('предупреждает, когда hasFocus вообще не снят', () => {
+    const r = isMeasurable({ fps: 60, visibilityState: 'visible' })
+    expect(r.ok).toBe(true)
+    expect(r.warnings).toContain('hasFocus не снят')
+  })
 })

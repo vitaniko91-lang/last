@@ -15,6 +15,16 @@ describe('overflowReport', () => {
     expect(r.overflowBy).toBe(145)
     expect(r.offenders).toEqual(['table.specs'])
   })
+
+  it('держит порог: 1 пиксель — нет, 2 — да', () => {
+    expect(overflowReport({ scrollWidth: 376, clientWidth: 375, offenders: [] }).overflows).toBe(false)
+    expect(overflowReport({ scrollWidth: 377, clientWidth: 375, offenders: [] }).overflows).toBe(true)
+  })
+
+  it('падает на несостоявшемся замере, а не отвечает «переполнения нет»', () => {
+    expect(() => overflowReport({})).toThrow(/scrollWidth/)
+    expect(() => overflowReport({ scrollWidth: 375 })).toThrow(/clientWidth/)
+  })
 })
 
 describe('tapTargetReport', () => {
@@ -38,5 +48,16 @@ describe('tapTargetReport', () => {
     const r = tapTargetReport([{ tag: 'a', width: 30, height: 30 }], 24)
     expect(r.passes).toBe(true)
     expect(r.min).toBe(24)
+  })
+
+  it('пустая выборка — не вердикт «всё хорошо», а отсутствие вердикта', () => {
+    const r = tapTargetReport([])
+    expect(r.passes).toBe(null)
+    expect(r.total).toBe(0)
+  })
+
+  it('падает на цели без размеров', () => {
+    expect(() => tapTargetReport([{ tag: 'a' }])).toThrow(/width/)
+    expect(() => tapTargetReport([{ tag: 'a', width: 40, height: null }])).toThrow(/height/)
   })
 })

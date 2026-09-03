@@ -46,4 +46,22 @@ describe('renderAuditTable', () => {
   it('выдаёт строку на каждую из семи метрик плюс шапку и разделитель', () => {
     expect(renderAuditTable(shops).split('\n')).toHaveLength(9)
   })
+
+  it('обезличивает КАЖДЫЙ магазин, а не только первый', () => {
+    const md = renderAuditTable(shops, { anonymise: true })
+    for (const s of shops) expect(md).not.toContain(s.name)
+  })
+
+  it('отвергает текст в ячейке — через него имя магазина уходит в публичную таблицу', () => {
+    const leaky = [{ name: 'Shop One', metrics: { ...shops[0].metrics, lcpMs: 'н/д, Shop One не отдал LCP' } }]
+    expect(() => renderAuditTable(leaky, { anonymise: true })).toThrow(/числом, булевым или null/)
+  })
+
+  it('отвергает опечатку в имени опции вместо тихой публикации имён', () => {
+    expect(() => renderAuditTable(shops, { anonymize: true })).toThrow(/anonymise/)
+  })
+
+  it('отвергает пустую выборку вместо вырожденной таблицы', () => {
+    expect(() => renderAuditTable([])).toThrow(/непустым/)
+  })
 })
