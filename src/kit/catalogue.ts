@@ -6,6 +6,7 @@ import type { Product, Sku } from './types'
 export const CATALOGUE: readonly Product[] = [
   {
     sku: 'cream',
+    priceRub: 2100,
     title: 'Крем-реноватор',
     role: 'Возвращает цвет и закрывает мелкие потёртости',
     consumable: true,
@@ -18,6 +19,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'balm',
+    priceRub: 1900,
     title: 'Бальзам-кондиционер',
     role: 'Питает кожу, не даёт ей пересыхать и трескаться',
     consumable: true,
@@ -26,6 +28,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'spray-smooth',
+    priceRub: 1490,
     title: 'Защитный спрей для гладкой кожи',
     role: 'Отталкивает воду и грязь, не меняя вид кожи',
     consumable: true,
@@ -34,6 +37,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'spray-suede',
+    priceRub: 1490,
     title: 'Защитный спрей для замши и нубука',
     role: 'Защищает ворс от воды и пятен, оставляя его дышащим',
     consumable: true,
@@ -42,6 +46,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'kit-suede',
+    priceRub: 2300,
     title: 'Набор для замши',
     role: 'Щётка, ластик и шампунь — чистка и подъём ворса',
     consumable: true,
@@ -50,6 +55,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'brush-horsehair',
+    priceRub: 1200,
     title: 'Щётка из конского волоса',
     role: 'Растушёвывает средство и снимает пыль между чистками',
     consumable: false,
@@ -58,6 +64,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'shoe-trees',
+    priceRub: 3200,
     title: 'Кедровые колодки',
     role: 'Держат форму и вытягивают влагу после носки',
     consumable: false,
@@ -66,6 +73,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'edge-dressing',
+    priceRub: 1100,
     title: 'Краска для уреза',
     role: 'Обновляет торец подошвы',
     consumable: true,
@@ -74,6 +82,7 @@ export const CATALOGUE: readonly Product[] = [
   },
   {
     sku: 'polish-patent',
+    priceRub: 1800,
     title: 'Полироль для лакированной кожи',
     role: 'Снимает следы и возвращает зеркало, не размягчая покрытие',
     consumable: true,

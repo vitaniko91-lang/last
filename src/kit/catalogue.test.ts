@@ -33,3 +33,12 @@ describe('CATALOGUE', () => {
     expect(() => bySku('nope')).toThrow(/nope/)
   })
 })
+
+describe('цены', () => {
+  it('у каждой позиции есть положительная целая цена', () => {
+    for (const p of CATALOGUE) {
+      expect(p.priceRub, p.sku).toBeGreaterThan(0)
+      expect(Number.isInteger(p.priceRub), p.sku).toBe(true)
+    }
+  })
+})

@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Tailwind получает роли системы, а не заводит свою палитру. */
+@theme inline {
+  --color-ground: var(--color-ground);
+  --color-surface: var(--color-surface);
+  --color-inverse: var(--color-inverse);
+  --color-ink: var(--color-text-primary);
+  --color-muted: var(--color-text-secondary);
+  --color-accent: var(--color-accent-base);
+  --color-line: var(--color-border-default);
+  --font-display: var(--font-family-display);
+  --font-text: var(--font-family-text);
+}
+
+/* База. Прямой угол по всей системе — решение, а не отсутствие решения:
+   он снимает целый класс ошибок концентрических радиусов. */
+html {
+  background: var(--color-ground);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+body { margin: 0; }
+
+h1, h2, h3 {
+  font-family: var(--font-family-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: var(--font-size-h1); line-height: var(--line-height-h1); font-weight: var(--font-weight-display-hero); }
+h2 { font-size: var(--font-size-h2); line-height: var(--line-height-h2); font-weight: var(--font-weight-display); }
+h3 { font-size: var(--font-size-h3); line-height: var(--line-height-h3); font-weight: var(--font-weight-display); }
+p  { text-wrap: pretty; margin: 0; }
+
+.label {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  font-weight: var(--font-weight-text-emphasis);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Любое число, меняющееся во время работы: срок, итог, счётчик корзины.
+   Без табличных цифр пересчёт сам и есть причина сдвига вёрстки. */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Кольцо фокуса только при клавиатурной навигации. Outline, не box-shadow:
+   тень срезается в режиме принудительных цветов. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-base);
+  outline-offset: 3px;
+}
+
+/* Спокойный вариант объявляется поштучно. Глобальная глушилка на *
+   не успокаивает зацикленную анимацию, а делает её резче. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-fade { transition: none; }
+}

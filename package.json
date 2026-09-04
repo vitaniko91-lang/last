@@ -8,11 +8,30 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "audit:measure": "node scripts/audit/measure.mjs",
-    "audit:report": "node scripts/audit/build-report.mjs"
+    "audit:report": "node scripts/audit/build-report.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tokens": "node scripts/build-tokens.mjs"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^29.1.1",
     "playwright-core": "^1.56.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
+    "vite": "^8.2.2",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router": "^7.18.3"
   }
 }

@@ -1,0 +1,74 @@
+/* СГЕНЕРИРОВАНО scripts/build-tokens.mjs — руками не править.
+   Источник: docs/portfolio/last/design-system/tokens.json
+   Пересобрать: npm run tokens */
+:root {
+
+  /* color */
+  --color-ground: #F2F1ED; /* Фон страницы */
+  --color-surface: #FFFFFF; /* Карточки, панель набора */
+  --color-inverse: #14181A; /* Инверсная секция — второй цвет, не оттенок */
+  --color-text-primary: #14181A; /* 15.81:1 на ground · 17.87:1 на surface */
+  --color-text-secondary: #5A6165; /* 5.58:1 на ground */
+  --color-text-on-accent: #FFFFFF; /* 7.44:1 на accent */
+  --color-text-on-inverse: #F2F1ED; /* Текст в инверсных секциях */
+  --color-text-secondary-on-inverse: #868C8F; /* 5.24:1 на inverse — проходит AA. text/secondary там даёт 2.84:1 и не годится: он рассчитан на бумажный ground. */
+  --color-accent-base: #2F5D57; /* Патина. Один акцент, держится */
+  --color-accent-light: #E4EDEA; /* Мягкая подложка, hover */
+  --color-accent-dark: #1E403C; /* Active */
+  --color-surface-alpha-subtle: #14181A08; /* 3% от text/primary — обычная карточка на ground */
+  --color-surface-alpha-accent: #2F5D570F; /* 6% от акцента — выбранная карточка */
+  --color-border-divider: #14181A14; /* 8% — разделители */
+  --color-border-default: #14181A24; /* 14% — карточки, поля ввода */
+  --color-border-accent: #2F5D574D; /* 30% — граница выбранного */
+  --color-border-strong: #D9D8D2; /* Непрозрачная граница на белом */
+  --color-semantic-success: #2F5D57; /* Совпадает с акцентом: успех здесь — «подобрали» */
+  --color-semantic-warning: #82641D; /* Конфликт материала и задачи: не ошибка покупателя, а предупреждение с заменой. Затемнён от #8A6A1F — исходный давал 4.46:1 на бумажном фоне и не проходил AA */
+  --color-semantic-error: #8C2F2A;
+  --color-semantic-info: #3A4A55; /* Нейтральное сообщение системы. НЕ для конфликтов — конфликт это warning */
+
+  /* spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-30: 120px;
+
+  /* radius */
+  --radius-none: 0px;
+  --radius-full: 9999px; /* Только аватары и точки-индикаторы. 9999, а не INT32_MAX: в Tailwind v4 rounded-full даёт 2147483647px, который Figma зажимает до 16777200 и не привязывает ни к одной переменной */
+
+  /* font-family */
+  --font-family-display: Archivo, system-ui, sans-serif;
+  --font-family-text: Source Serif 4, Georgia, serif;
+
+  /* font-weight */
+  --font-weight-display-hero: 800;
+  --font-weight-display: 700;
+  --font-weight-text-emphasis: 600;
+  --font-weight-text: 400;
+
+  /* font-size */
+  --font-size-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+  --font-size-h2: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  --font-size-h3: 1.5rem;
+  --font-size-body: 1.0625rem;
+  --font-size-caption: 0.8125rem;
+
+  /* line-height */
+  --line-height-h1: 1.05;
+  --line-height-h2: 1.15;
+  --line-height-h3: 1.25;
+  --line-height-body: 1.6;
+  --line-height-caption: 1.45;
+
+  /* tracking */
+  --tracking-display: -0.02em;
+  --tracking-body: 0em;
+  --tracking-label: 0.16em; /* Микро-лейбл капсом, 13px, вес 600 */
+}
