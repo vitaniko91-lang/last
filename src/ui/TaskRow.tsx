@@ -27,7 +27,7 @@ export function TaskRow({ task, checked, marked, markLabel, explanation, substit
         aria-checked={checked}
         aria-describedby={explanation ? noteId : undefined}
         onClick={() => onToggle(!checked)}
-        className="w-full flex items-center gap-4 px-4 sm:px-6 py-5 text-left bg-[var(--color-surface)] border border-[var(--color-border-default)] cursor-pointer"
+        className="@container w-full flex flex-wrap items-center gap-x-4 gap-y-3 px-4 sm:px-6 py-5 text-left bg-[var(--color-surface)] border border-[var(--color-border-default)] cursor-pointer"
       >
         <span
           aria-hidden
@@ -46,12 +46,14 @@ export function TaskRow({ task, checked, marked, markLabel, explanation, substit
             </svg>
           )}
         </span>
-        <span className="flex-1 min-w-0">
+        <span className="flex-1 basis-[calc(100%-2.5rem)] @sm:basis-0 min-w-0">
           <span className="block font-semibold">{info.title}</span>
           <span className="block text-[var(--color-text-secondary)]">{info.hint}</span>
         </span>
         {marked && markLabel && (
-          <span className="label shrink-0 px-3 py-2 border border-[var(--color-semantic-warning)] text-[var(--color-semantic-warning)]">
+          // Тег уходит на свою строку, когда строка задачи узкая: рядом с
+          // текстом он сдавливает подсказку в колонку шириной с одно слово.
+          <span className="label shrink-0 ml-10 @sm:ml-0 px-3 py-2 border border-[var(--color-semantic-warning)] text-[var(--color-semantic-warning)]">
             {markLabel}
           </span>
         )}

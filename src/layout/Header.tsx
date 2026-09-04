@@ -6,7 +6,9 @@ export function Header() {
   const { count } = useCart()
   return (
     <header className="flex items-center justify-between gap-4 px-5 sm:px-20 py-4 sm:py-6 border-b border-[var(--color-border-divider)]">
-      <Link to="/" className="font-[family-name:var(--font-family-display)] font-extrabold text-[length:var(--font-size-h3)] tracking-[var(--tracking-display)]">
+      {/* min-h-10: на 375 строка логотипа сама по себе 38px — на два пикселя
+          ниже порога зоны нажатия. Расширяем зону, а не кегль. */}
+      <Link to="/" className="flex items-center min-h-10 font-[family-name:var(--font-family-display)] font-extrabold text-[length:var(--font-size-h3)] tracking-[var(--tracking-display)]">
         LAST
       </Link>
       <nav className="flex items-center gap-3 sm:gap-8">

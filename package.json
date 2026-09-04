@@ -12,7 +12,9 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "tokens": "node scripts/build-tokens.mjs"
+    "tokens": "node scripts/build-tokens.mjs",
+    "qa:responsive": "node scripts/qa/responsive.mjs",
+    "qa:shots": "node scripts/qa/screenshots.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
