@@ -3,7 +3,7 @@
 Вымышленный DTC-бренд ухода за кожей и обувью. Портфолио-кейс: витрина с живым
 конфигуратором, построенная на замере четырёх реальных магазинов категории.
 
-- **Сайт:** см. деплой
+- **Сайт:** https://last-vitaniko91-langs-projects.vercel.app
 - **Figma (публичный файл):** https://www.figma.com/design/ztM2VHMovlutEykLNGPLVq
 - **Аудит категории:** `docs/portfolio/last/audit/category-audit.md`
 - **Дизайн-система:** `docs/portfolio/last/design-system/`
