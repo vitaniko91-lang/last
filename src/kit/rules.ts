@@ -1,0 +1,65 @@
+// cases/last/src/kit/rules.ts
+import type { Conflict, Material, Sku, Task } from './types'
+
+export const MATERIALS: readonly Material[] = ['smooth', 'suede', 'cordovan', 'oiled']
+export const TASKS: readonly Task[] = ['clean', 'nourish', 'protect', 'restore']
+
+// Матрица «материал × задача». Пустой список означает, что пара невозможна —
+// тогда для неё обязан существовать конфликт с объяснением (проверено тестом).
+const MATRIX: Record<Material, Record<Task, readonly Sku[]>> = {
+  smooth: {
+    clean: ['brush-horsehair'],
+    nourish: ['balm', 'brush-horsehair'],
+    protect: ['spray-smooth'],
+    restore: ['cream', 'brush-horsehair'],
+  },
+  suede: {
+    clean: ['kit-suede'],
+    nourish: [],
+    protect: ['spray-suede'],
+    restore: [],
+  },
+  cordovan: {
+    clean: ['brush-horsehair'],
+    nourish: ['balm', 'brush-horsehair'],
+    protect: ['spray-smooth'],
+    restore: ['cream', 'brush-horsehair'],
+  },
+  oiled: {
+    clean: ['brush-horsehair'],
+    nourish: ['balm', 'brush-horsehair'],
+    protect: ['spray-smooth'],
+    restore: [],
+  },
+}
+
+// Причина пишется тем языком, которым покупатель описывает свою вещь.
+// «Забьёт поры» — термин; «склеит ворс и посадит пятно» — то, что он увидит.
+const CONFLICTS: readonly Conflict[] = [
+  {
+    material: 'suede',
+    task: 'restore',
+    reason: 'Крем-реноватор склеит ворс замши и ляжет пятнами — цвет замше возвращают не кремом.',
+    insteadSku: 'kit-suede',
+  },
+  {
+    material: 'suede',
+    task: 'nourish',
+    reason: 'Замшу не питают бальзамом: жир прибьёт ворс, и вещь станет выглядеть засаленной.',
+    insteadSku: 'kit-suede',
+  },
+  {
+    material: 'oiled',
+    task: 'restore',
+    reason: 'На масляной коже цветной крем ложится неровно поверх пропитки и оставляет разводы.',
+    insteadSku: 'balm',
+  },
+]
+
+export function skusFor(material: Material, task: Task): Sku[] {
+  return [...MATRIX[material][task]]
+}
+
+export function conflictFor(material: Material, task: Task): Conflict | null {
+  return CONFLICTS.find(c => c.material === material && c.task === task) ?? null
+}
