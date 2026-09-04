@@ -6,11 +6,13 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
     "audit:measure": "node scripts/audit/measure.mjs",
     "audit:report": "node scripts/audit/build-report.mjs"
   },
   "devDependencies": {
     "playwright-core": "^1.56.0",
+    "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   }
 }
