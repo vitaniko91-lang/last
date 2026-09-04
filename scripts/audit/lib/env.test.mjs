@@ -1,6 +1,6 @@
 // cases/last/scripts/audit/lib/env.test.mjs
 import { describe, it, expect } from 'vitest'
-import { isMeasurable } from './env.mjs'
+import { isMeasurable, isLayoutMeasurable } from './env.mjs'
 
 describe('isMeasurable', () => {
   it('пропускает видимую страницу с живым рендером', () => {
@@ -51,5 +51,33 @@ describe('isMeasurable', () => {
     const r = isMeasurable({ fps: 60, visibilityState: 'visible' })
     expect(r.ok).toBe(true)
     expect(r.warnings).toContain('hasFocus не снят')
+  })
+})
+
+describe('isLayoutMeasurable', () => {
+  const good = { visibilityState: 'visible', innerWidth: 375, expectedWidth: 375, bodyTextLength: 4200, url: 'https://example.com/' }
+
+  it('пропускает нормально отрендеренную страницу', () => {
+    expect(isLayoutMeasurable(good).ok).toBe(true)
+  })
+
+  it('НЕ смотрит на частоту кадров: 5 fps вёрстке не мешают', () => {
+    expect(isLayoutMeasurable({ ...good, fps: 5 }).ok).toBe(true)
+  })
+
+  it('блокирует расхождение вьюпорта — это обрезанный захват, а не reflow', () => {
+    const r = isLayoutMeasurable({ ...good, innerWidth: 1440, expectedWidth: 375 })
+    expect(r.ok).toBe(false)
+    expect(r.blockers.join()).toMatch(/innerWidth/)
+  })
+
+  it('блокирует пустое тело — так выглядит заглушка антибота', () => {
+    expect(isLayoutMeasurable({ ...good, bodyTextLength: 120 }).ok).toBe(false)
+    expect(isLayoutMeasurable({ ...good, bodyTextLength: undefined }).ok).toBe(false)
+  })
+
+  it('блокирует about:blank и невидимую страницу', () => {
+    expect(isLayoutMeasurable({ ...good, url: 'about:blank' }).ok).toBe(false)
+    expect(isLayoutMeasurable({ ...good, visibilityState: 'hidden' }).ok).toBe(false)
   })
 })

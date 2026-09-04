@@ -7,14 +7,14 @@ const shops = [
     name: 'Shop One',
     metrics: {
       stepsToKit: 7, hasMaterialFinder: false, knowledgeDecisions: 3,
-      repeatOrderClicks: 5, mobileOverflow: true, tapTargetFails: 12, lcpMs: 3400,
+      repeatOrderClicks: 5, mobileOverflow: true, tapTargetFails: 12,
     },
   },
   {
     name: 'Shop Two',
     metrics: {
       stepsToKit: 5, hasMaterialFinder: true, knowledgeDecisions: 1,
-      repeatOrderClicks: null, mobileOverflow: false, tapTargetFails: 0, lcpMs: 1900,
+      repeatOrderClicks: null, mobileOverflow: false, tapTargetFails: 0,
     },
   },
 ]
@@ -43,8 +43,8 @@ describe('renderAuditTable', () => {
     expect(md).toContain('| Кликов до повторного заказа | 5 | — |')
   })
 
-  it('выдаёт строку на каждую из семи метрик плюс шапку и разделитель', () => {
-    expect(renderAuditTable(shops).split('\n')).toHaveLength(9)
+  it('выдаёт строку на каждую из шести метрик плюс шапку и разделитель', () => {
+    expect(renderAuditTable(shops).split('\n')).toHaveLength(8)
   })
 
   it('обезличивает КАЖДЫЙ магазин, а не только первый', () => {
@@ -53,7 +53,7 @@ describe('renderAuditTable', () => {
   })
 
   it('отвергает текст в ячейке — через него имя магазина уходит в публичную таблицу', () => {
-    const leaky = [{ name: 'Shop One', metrics: { ...shops[0].metrics, lcpMs: 'н/д, Shop One не отдал LCP' } }]
+    const leaky = [{ name: 'Shop One', metrics: { ...shops[0].metrics, tapTargetFails: 'н/д, Shop One заблокировал замер' } }]
     expect(() => renderAuditTable(leaky, { anonymise: true })).toThrow(/числом, булевым или null/)
   })
 

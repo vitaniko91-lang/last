@@ -8,7 +8,6 @@ export const COLUMNS = [
   ['repeatOrderClicks', 'Кликов до повторного заказа'],
   ['mobileOverflow', 'Переполнение на 375'],
   ['tapTargetFails', 'Тап-таргетов меньше 40×40'],
-  ['lcpMs', 'LCP, мс'],
 ]
 
 // Обезличивание рассчитано на буквы A…Z.
