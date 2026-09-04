@@ -1,6 +1,6 @@
 // cases/last/src/kit/types.ts
 
-export type Material = 'smooth' | 'suede' | 'cordovan' | 'oiled'
+export type Material = 'smooth' | 'suede' | 'patent' | 'oiled'
 export type Task = 'clean' | 'nourish' | 'protect' | 'restore'
 export type Frequency = 'daily' | 'weekly' | 'rare'
 
@@ -13,6 +13,7 @@ export type Sku =
   | 'brush-horsehair'
   | 'shoe-trees'
   | 'edge-dressing'
+  | 'polish-patent'
 
 export interface Product {
   sku: Sku

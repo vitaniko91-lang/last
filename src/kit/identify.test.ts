@@ -8,8 +8,8 @@ describe('identifyMaterial', () => {
     expect(identifyMaterial({ nap: true, glossy: false })).toBe('suede')
   })
 
-  it('ворса нет и сильный блеск — кордован', () => {
-    expect(identifyMaterial({ nap: false, glossy: true })).toBe('cordovan')
+  it('ворса нет и сильный блеск — лакированная кожа', () => {
+    expect(identifyMaterial({ nap: false, glossy: true })).toBe('patent')
   })
 
   it('ворса нет, не блестит, темнеет от нажатия пальцем — масляная кожа', () => {
@@ -29,7 +29,7 @@ describe('identifyMaterial', () => {
   it('вопросов ровно три и все заданы наблюдением, а не термином', () => {
     expect(SIGN_QUESTIONS).toHaveLength(3)
     for (const q of SIGN_QUESTIONS) {
-      expect(q.text).not.toMatch(/нубук|кордован|анилин|пулл-ап/i)
+      expect(q.text).not.toMatch(/нубук|кордован|лак|анилин|пулл-ап/i)
     }
   })
 })

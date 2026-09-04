@@ -40,9 +40,17 @@ describe('сквозные сценарии', () => {
   })
 
   it('порядок задач не влияет ни на набор, ни на срок', () => {
-    const a = resolve({ material: 'cordovan', tasks: ['restore', 'protect', 'clean'], frequency: 'rare' })
-    const b = resolve({ material: 'cordovan', tasks: ['clean', 'protect', 'restore'], frequency: 'rare' })
+    const a = resolve({ material: 'smooth', tasks: ['restore', 'protect', 'clean'], frequency: 'rare' })
+    const b = resolve({ material: 'smooth', tasks: ['clean', 'protect', 'restore'], frequency: 'rare' })
     expect(a.items.map(i => i.sku)).toEqual(b.items.map(i => i.sku))
     expect(scheduleFor(a.items, 'rare')).toEqual(scheduleFor(b.items, 'rare'))
+  })
+
+  it('лак: три задачи из четырёх — конфликты, в наборе одна позиция', () => {
+    const kit = resolve({ material: 'patent', tasks: [...TASKS], frequency: 'weekly' })
+    expect(kit.items.map(i => i.sku)).toEqual(['polish-patent'])
+    expect(kit.conflicts).toHaveLength(3)
+    expect(kit.needsShade).toBe(false)
+    expect(scheduleFor(kit.items, 'weekly').months).toBe(18)
   })
 })

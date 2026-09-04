@@ -3,9 +3,15 @@ import { describe, it, expect } from 'vitest'
 import { CATALOGUE, bySku } from './catalogue'
 
 describe('CATALOGUE', () => {
-  it('содержит ровно восемь позиций с уникальными id', () => {
-    expect(CATALOGUE).toHaveLength(8)
-    expect(new Set(CATALOGUE.map(p => p.sku)).size).toBe(8)
+  it('содержит ровно девять позиций с уникальными id', () => {
+    expect(CATALOGUE).toHaveLength(9)
+    expect(new Set(CATALOGUE.map(p => p.sku)).size).toBe(9)
+  })
+
+  it('у лакированной кожи есть своё средство', () => {
+    const p = bySku('polish-patent')
+    expect(p.consumable).toBe(true)
+    expect(p.coverageMonths).toBeGreaterThan(0)
   })
 
   it('у расходника есть срок, у нерасходника его нет', () => {

@@ -27,7 +27,7 @@ export const SIGN_QUESTIONS: readonly SignQuestion[] = [
 
 export function identifyMaterial(signs: Signs): Material {
   if (signs.nap) return 'suede'
-  if (signs.glossy) return 'cordovan'
+  if (signs.glossy) return 'patent'
   // Без ответа про потемнение отвечаем «гладкая»: она встречается чаще, и
   // средства для неё на масляной коже вещь не портят — ошибка в эту сторону
   // дешевле обратной.

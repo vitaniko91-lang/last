@@ -72,6 +72,14 @@ export const CATALOGUE: readonly Product[] = [
     coverageMonths: 24,
     shades: null,
   },
+  {
+    sku: 'polish-patent',
+    title: 'Полироль для лакированной кожи',
+    role: 'Снимает следы и возвращает зеркало, не размягчая покрытие',
+    consumable: true,
+    coverageMonths: 18,
+    shades: null,
+  },
 ]
 
 const INDEX = new Map(CATALOGUE.map(p => [p.sku, p]))

@@ -19,6 +19,9 @@ describe('skusFor', () => {
     expect(skusFor('suede', 'restore')).toEqual([])
     expect(skusFor('suede', 'nourish')).toEqual([])
     expect(skusFor('oiled', 'restore')).toEqual([])
+    expect(skusFor('patent', 'restore')).toEqual([])
+    expect(skusFor('patent', 'nourish')).toEqual([])
+    expect(skusFor('patent', 'protect')).toEqual([])
   })
 
   it('колодки и краска для уреза не попадают ни в одну пару', () => {
@@ -35,6 +38,10 @@ describe('skusFor', () => {
       }
     }
   })
+
+  it('у лака работает единственная задача — чистка', () => {
+    expect(skusFor('patent', 'clean')).toEqual(['polish-patent'])
+  })
 })
 
 describe('conflictFor', () => {
@@ -49,8 +56,17 @@ describe('conflictFor', () => {
     expect(conflictFor('smooth', 'protect')).toBeNull()
   })
 
-  it('конфликтов ровно три', () => {
+  it('конфликтов ровно шесть', () => {
     const found = MATERIALS.flatMap(m => TASKS.map(t => conflictFor(m, t))).filter(Boolean)
-    expect(found).toHaveLength(3)
+    expect(found).toHaveLength(6)
+  })
+
+  it('лак нельзя ни кормить, ни красить, ни защищать — и каждый случай объяснён', () => {
+    for (const task of ['nourish', 'restore', 'protect'] as const) {
+      const c = conflictFor('patent', task)
+      expect(c, task).not.toBeNull()
+      expect(c!.reason.length, task).toBeGreaterThan(20)
+      expect(c!.insteadSku, task).toBe('polish-patent')
+    }
   })
 })

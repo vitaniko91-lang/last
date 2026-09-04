@@ -1,7 +1,7 @@
 // cases/last/src/kit/rules.ts
 import type { Conflict, Material, Sku, Task } from './types'
 
-export const MATERIALS: readonly Material[] = ['smooth', 'suede', 'cordovan', 'oiled']
+export const MATERIALS: readonly Material[] = ['smooth', 'suede', 'patent', 'oiled']
 export const TASKS: readonly Task[] = ['clean', 'nourish', 'protect', 'restore']
 
 // Матрица «материал × задача». Пустой список означает, что пара невозможна —
@@ -19,11 +19,11 @@ const MATRIX: Record<Material, Record<Task, readonly Sku[]>> = {
     protect: ['spray-suede'],
     restore: [],
   },
-  cordovan: {
-    clean: ['brush-horsehair'],
-    nourish: ['balm', 'brush-horsehair'],
-    protect: ['spray-smooth'],
-    restore: ['cream', 'brush-horsehair'],
+  patent: {
+    clean: ['polish-patent'],
+    nourish: [],
+    protect: [],
+    restore: [],
   },
   oiled: {
     clean: ['brush-horsehair'],
@@ -53,6 +53,24 @@ const CONFLICTS: readonly Conflict[] = [
     task: 'restore',
     reason: 'На масляной коже цветной крем ложится неровно поверх пропитки и оставляет разводы.',
     insteadSku: 'balm',
+  },
+  {
+    material: 'patent',
+    task: 'nourish',
+    reason: 'Лак — это плёнка поверх кожи, а не сама кожа: питать её нечем, а жирное средство размягчит покрытие и оно пойдёт морщинами.',
+    insteadSku: 'polish-patent',
+  },
+  {
+    material: 'patent',
+    task: 'restore',
+    reason: 'Цветной крем на лаке не впитывается и остаётся липкой плёнкой, которая соберёт пыль. Цвет лаку возвращают полировкой, а не кремом.',
+    insteadSku: 'polish-patent',
+  },
+  {
+    material: 'patent',
+    task: 'protect',
+    reason: 'Лак уже герметичен — воду он не пропускает сам по себе. Защитный спрей ляжет матовым налётом и убьёт зеркало.',
+    insteadSku: 'polish-patent',
   },
 ]
 
