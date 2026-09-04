@@ -2,6 +2,15 @@ import { useCallback, useMemo, useState } from 'react'
 import { resolve } from '../kit/resolve'
 import { scheduleFor } from '../kit/schedule'
 import type { Frequency, Material, Sku, Task } from '../kit/types'
+import type { Schedule } from '../kit/schedule'
+
+/**
+ * Срок, который точно есть. `Schedule` из движка допускает null в обоих полях —
+ * набор может не содержать расходников. Хук эту ветку уже отсекает и отдаёт
+ * либо целый срок, либо `null` целиком, поэтому странице не приходится
+ * проверять каждое поле заново.
+ */
+export type SettledSchedule = { months: number; firstToRunOut: Sku }
 
 /**
  * Хук не содержит ни одного правила ухода. Правила живут в kit/ и покрыты
@@ -35,11 +44,12 @@ export function useConfigurator() {
     [resolved, removed],
   )
 
-  const schedule = useMemo(() => {
+  const schedule = useMemo<SettledSchedule | null>(() => {
     if (items.length === 0) return null
-    const s = scheduleFor(items, frequency)
+    const s: Schedule = scheduleFor(items, frequency)
     // Ни одного расходника — считать нечего, и напоминать не о чем.
-    return s.firstToRunOut === null ? null : s
+    if (s.firstToRunOut === null || s.months === null) return null
+    return { months: s.months, firstToRunOut: s.firstToRunOut }
   }, [items, frequency])
 
   return {
