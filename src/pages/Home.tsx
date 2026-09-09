@@ -3,7 +3,7 @@ import { CATALOGUE } from '../kit/catalogue'
 import { MATERIALS } from '../kit/rules'
 import { MATERIAL_INFO } from '../lib/materials'
 import { formatRub } from '../lib/money'
-import { Button } from '../ui/Button'
+import { Hero } from './Hero'
 import { MaterialTexture } from '../ui/MaterialTexture'
 
 const STEPS: [string, string][] = [
@@ -15,17 +15,7 @@ const STEPS: [string, string][] = [
 export function Home() {
   return (
     <>
-      <section className="px-5 sm:px-20 pt-12 sm:pt-30 pb-12 sm:pb-16">
-        <h1 className="max-w-[16ch]">Уход за вещами, которые вы не собираетесь менять</h1>
-        <p className="mt-6 text-[var(--color-text-secondary)] max-w-[62ch]">
-          Четыре вопроса — и мы соберём набор под вашу вещь, посчитаем, на сколько
-          его хватит, и не предложим того, что вашему материалу навредит.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-3">
-          <Button href="/configurator">Подобрать уход</Button>
-          <Button href="/catalogue" styleName="secondary">Смотреть каталог</Button>
-        </div>
-      </section>
+      <Hero />
 
       <section className="px-5 sm:px-20 pb-16 sm:pb-30">
         <h2>Начните с материала вашей вещи</h2>

@@ -45,7 +45,7 @@
 
   /* font-family */
   --font-family-display: Archivo, system-ui, sans-serif;
-  --font-family-text: Source Serif 4, Georgia, serif;
+  --font-family-text: "Source Serif 4", Georgia, serif;
 
   /* font-weight */
   --font-weight-display-hero: 800;
