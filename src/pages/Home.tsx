@@ -63,6 +63,7 @@ export function Home() {
       <Reveal>
         <section className="px-5 sm:px-20 py-16 sm:py-30">
           <SectionHead
+            caps
             label="Линейка"
             title="Девять позиций, ни одной лишней"
             lede="Под каждой — материалы, на которых средство работает. Список тот же, что у конфигуратора: второго источника нет."
