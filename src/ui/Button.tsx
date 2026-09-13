@@ -4,18 +4,21 @@ import type { ReactNode } from 'react'
 type Style = 'primary' | 'secondary' | 'ghost'
 
 const BASE =
-  'inline-flex items-center justify-center gap-2 min-h-10 px-6 py-4 ' +
-  'font-semibold text-center cursor-pointer transition-colors duration-200'
+  'relative inline-flex items-stretch justify-center min-h-10 ' +
+  'font-medium text-center cursor-pointer'
 
+/**
+ * Две кнопки системы — два предмета сцены, а не две заливки.
+ * primary — пластина под ключевым светом (градиент, блик по верхней кромке,
+ * луч на наведении); стили в index.css → .btn-plate.
+ * secondary — рамка кадра: два уголка видоискателя, полная рамка проявляется
+ * на наведении; цвет берётся из currentColor, поэтому одна и та же кнопка
+ * стоит и на сцене, и на бумажном ground.
+ */
 const STYLES: Record<Style, string> = {
-  primary:
-    'bg-[var(--color-accent-base)] text-[var(--color-text-on-accent)] ' +
-    'hover:bg-[var(--color-accent-dark)]',
-  secondary:
-    'bg-[var(--color-surface)] text-[var(--color-text-primary)] ' +
-    'border border-[var(--color-border-default)] hover:border-[var(--color-accent-base)]',
-  ghost:
-    'text-[var(--color-accent-base)] px-0 hover:text-[var(--color-accent-dark)]',
+  primary: 'btn-plate text-[var(--color-text-on-accent)]',
+  secondary: 'btn-frame text-current',
+  ghost: 'text-[var(--color-accent-base)] px-0 py-4 hover:text-[var(--color-accent-dark)] transition-colors duration-200',
 }
 
 interface Props {
@@ -23,6 +26,9 @@ interface Props {
   styleName?: Style
   href?: string
   onClick?: () => void
+  /** Вторая ячейка пластины: что кнопка обещает — «4 вопроса», «2 минуты».
+   *  Входит в имя ссылки: это часть обещания, а не декор. Только для primary. */
+  meta?: ReactNode
   /** Недоступно сейчас — но остаётся достижимым с клавиатуры и объясняется
    *  по нажатию. `disabled` убрал бы элемент из порядка обхода, и пользователь
    *  не узнал бы, почему кнопка не работает. */
@@ -32,18 +38,35 @@ interface Props {
 }
 
 export function Button({
-  children, styleName = 'primary', href, onClick, unavailable, className = '', type = 'button',
+  children, styleName = 'primary', href, onClick, meta, unavailable, className = '', type = 'button',
 }: Props) {
   const cls = `${BASE} ${STYLES[styleName]} ${unavailable ? 'opacity-60' : ''} ${className}`
+  const inner = styleName === 'ghost'
+    ? children
+    : (
+      <>
+        {styleName === 'secondary' && <span data-rim aria-hidden="true" className="btn-frame-rim" />}
+        <span className="inline-flex items-center px-6 py-4">{children}</span>
+        {/* Пробел между ячейками — для имени ссылки: flex его не рисует,
+            а читалка без него склеила бы «уход4 вопроса». */}
+        {styleName === 'primary' && meta != null && (
+          <>
+            {' '}
+            <span className="btn-plate-meta inline-flex items-center px-4 py-4 tnum">{meta}</span>
+          </>
+        )}
+      </>
+    )
+
   if (href) {
     const external = href.startsWith('http')
     return external
-      ? <a href={href} target="_blank" rel="noreferrer" className={cls}>{children}</a>
-      : <Link to={href} className={cls}>{children}</Link>
+      ? <a href={href} target="_blank" rel="noreferrer" className={cls}>{inner}</a>
+      : <Link to={href} className={cls}>{inner}</Link>
   }
   return (
     <button type={type} className={cls} onClick={onClick} aria-disabled={unavailable || undefined}>
-      {children}
+      {inner}
     </button>
   )
 }

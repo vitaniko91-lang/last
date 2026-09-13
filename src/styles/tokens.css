@@ -15,16 +15,20 @@
   --color-accent-base: #2F5D57; /* Патина. Один акцент, держится */
   --color-accent-light: #E4EDEA; /* Мягкая подложка, hover */
   --color-accent-dark: #1E403C; /* Active */
+  --color-accent-lit: #3D726B; /* Акцент под ключевым светом — верхняя кромка пластины кнопки */
   --color-surface-alpha-subtle: #14181A08; /* 3% от text/primary — обычная карточка на ground */
   --color-surface-alpha-accent: #2F5D570F; /* 6% от акцента — выбранная карточка */
   --color-border-divider: #14181A14; /* 8% — разделители */
   --color-border-default: #14181A24; /* 14% — карточки, поля ввода */
   --color-border-accent: #2F5D574D; /* 30% — граница выбранного */
   --color-border-strong: #D9D8D2; /* Непрозрачная граница на белом */
+  --color-border-on-inverse: #F2F1ED1F; /* 12% от text/on-inverse — линии и рамки на тёмной сцене */
   --color-semantic-success: #2F5D57; /* Совпадает с акцентом: успех здесь — «подобрали» */
   --color-semantic-warning: #82641D; /* Конфликт материала и задачи: не ошибка покупателя, а предупреждение с заменой. Затемнён от #8A6A1F — исходный давал 4.46:1 на бумажном фоне и не проходил AA */
   --color-semantic-error: #8C2F2A;
   --color-semantic-info: #3A4A55; /* Нейтральное сообщение системы. НЕ для конфликтов — конфликт это warning */
+  --color-scene: #0E1214; /* Сцена героя — глубже inverse, чтобы ключевой свет читался. Не фон страницы */
+  --color-light-key: #FFF1DC; /* Тёплый ключевой свет сцены. В градиентах через color-mix, сам по себе не заливка */
 
   /* spacing */
   --spacing-1: 4px;
@@ -44,17 +48,17 @@
   --radius-full: 9999px; /* Только аватары и точки-индикаторы. 9999, а не INT32_MAX: в Tailwind v4 rounded-full даёт 2147483647px, который Figma зажимает до 16777200 и не привязывает ни к одной переменной */
 
   /* font-family */
-  --font-family-display: Archivo, system-ui, sans-serif;
-  --font-family-text: "Source Serif 4", Georgia, serif;
+  --font-family-display: Golos Text, system-ui, sans-serif; /* Одна гарнитура на всю систему. Golos Text — неогротеск с родной кириллицей; Archivo с Google Fonts кириллицы не имеет, и заголовки на русском рендерил системный фолбэк (замер 2026-09-13) */
+  --font-family-text: Golos Text, system-ui, sans-serif;
 
   /* font-weight */
-  --font-weight-display-hero: 800;
-  --font-weight-display: 700;
-  --font-weight-text-emphasis: 600;
+  --font-weight-display-hero: 400;
+  --font-weight-display: 500;
+  --font-weight-text-emphasis: 500;
   --font-weight-text: 400;
 
   /* font-size */
-  --font-size-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+  --font-size-h1: clamp(2.5rem, min(5vw, 9svh), 5.5rem); /* Ограничен и шириной, и высотой экрана: герой обязан помещаться в короткий вьюпорт (700px) целиком */
   --font-size-h2: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
   --font-size-h3: 1.5rem;
   --font-size-body: 1.0625rem;
@@ -68,7 +72,7 @@
   --line-height-caption: 1.45;
 
   /* tracking */
-  --tracking-display: -0.02em;
+  --tracking-display: -0.005em;
   --tracking-body: 0em;
   --tracking-label: 0.16em; /* Микро-лейбл капсом, 13px, вес 600 */
 }

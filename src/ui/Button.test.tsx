@@ -29,4 +29,17 @@ describe('Button', () => {
     expect(b).toHaveAttribute('aria-disabled', 'true')
     expect(b).not.toHaveAttribute('disabled')
   })
+
+  it('meta входит в имя ссылки: «4 вопроса» — часть обещания кнопки, а не декор', () => {
+    view(<Button href="/configurator" meta="4 вопроса">Подобрать уход</Button>)
+    expect(screen.getByRole('link', { name: 'Подобрать уход 4 вопроса' })).toHaveAttribute('href', '/configurator')
+  })
+
+  it('рамка кадра у secondary — декор, скрытый от читалки', () => {
+    const { container } = view(<Button href="/catalogue" styleName="secondary">Смотреть каталог</Button>)
+    expect(screen.getByRole('link', { name: 'Смотреть каталог' })).toBeInTheDocument()
+    const rim = container.querySelector('[data-rim]')
+    expect(rim).not.toBeNull()
+    expect(rim).toHaveAttribute('aria-hidden', 'true')
+  })
 })

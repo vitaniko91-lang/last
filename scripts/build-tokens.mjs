@@ -1,14 +1,29 @@
 // tokens.json → tokens.css. Правится JSON, не CSS.
 // Единственный источник истины по цвету, отступам и типографике живёт в
 // docs/portfolio/last/design-system/tokens.json — там же, где спека системы.
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { cssFontFamily } from './css-value.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const SRC = resolve(here, '../../../docs/portfolio/last/design-system/tokens.json')
 const OUT = resolve(here, '../src/styles/tokens.css')
+
+// tokens.json живёт в соседнем docs-репо. Путь ищется вверх по дереву, а не
+// считается от scripts/: из git worktree (.worktrees/<ветка>/) фиксированные
+// три уровня вверх указывают внутрь самого репозитория, и файла там нет.
+function findTokens() {
+  let dir = here
+  for (let i = 0; i < 8; i++) {
+    const candidate = resolve(dir, 'docs/portfolio/last/design-system/tokens.json')
+    if (existsSync(candidate)) return candidate
+    const up = dirname(dir)
+    if (up === dir) break
+    dir = up
+  }
+  throw new Error('tokens.json не найден: docs/portfolio/last/design-system/tokens.json ни в одном родителе')
+}
+const SRC = findTokens()
 
 const tokens = JSON.parse(readFileSync(SRC, 'utf8'))
 

@@ -21,7 +21,7 @@ export function Header() {
     >
       {/* min-h-10: на 375 строка логотипа сама по себе 38px — на два пикселя
           ниже порога зоны нажатия. Расширяем зону, а не кегль. */}
-      <Link to="/" className="flex items-center min-h-10 font-[family-name:var(--font-family-display)] font-extrabold text-[length:var(--font-size-h3)] tracking-[var(--tracking-display)]">
+      <Link to="/" className="flex items-center min-h-10 font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h3)] tracking-[0.04em]">
         LAST
       </Link>
       <nav className="flex items-center gap-3 sm:gap-8">
@@ -36,7 +36,11 @@ export function Header() {
             </span>
           )}
         </Link>
-        <Button href="/configurator" className="hidden sm:inline-flex">Подобрать уход</Button>
+        {/* Обёртка, а не hidden на самой кнопке: display у кнопки задаёт
+            компонент, и два display-класса на одном элементе спорят. */}
+        <span className="hidden sm:block">
+          <Button href="/configurator" styleName="secondary">Подобрать уход</Button>
+        </span>
       </nav>
     </header>
   )

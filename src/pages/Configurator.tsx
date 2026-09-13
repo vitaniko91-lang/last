@@ -170,7 +170,7 @@ export function Configurator() {
                 <p className="label text-[var(--color-text-secondary)]">Хватит примерно на</p>
                 {/* Число меняется на глазах при снятии позиции: без табличных
                     цифр строка дёргалась бы на каждом пересчёте. */}
-                <p className="mt-1 font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h2)] leading-[var(--line-height-h2)] tnum">
+                <p className="mt-1 font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h2)] leading-[var(--line-height-h2)] tnum">
                   {c.schedule.months} {months(c.schedule.months)}
                 </p>
                 <p className="mt-2 text-[var(--color-text-secondary)]">
@@ -198,7 +198,7 @@ export function Configurator() {
 
             <div className="pt-4 border-t border-[var(--color-border-divider)] flex items-center gap-4">
               <p className="flex-1 font-semibold">Итого</p>
-              <p className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] tnum">
+              <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
                 {formatRub(total)}
               </p>
             </div>

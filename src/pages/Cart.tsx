@@ -60,7 +60,7 @@ export function Cart() {
       <aside className="lg:sticky lg:top-6 p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border-default)] flex flex-col gap-5">
         <div className="flex items-center gap-4">
           <p className="flex-1 font-semibold">Итого</p>
-          <p className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] tnum">
+          <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
             {formatRub(total)}
           </p>
         </div>

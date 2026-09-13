@@ -61,7 +61,7 @@ export function IdentifyMaterial({ onDone, onCancel }: Props) {
             </div>
             <div>
               <p className="label text-[var(--color-text-secondary)]">Похоже на</p>
-              <p className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)]">
+              <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)]">
                 {MATERIAL_INFO[guess].title}
               </p>
             </div>

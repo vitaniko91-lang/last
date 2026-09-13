@@ -27,7 +27,7 @@ export function MaterialCard({ material, checked, onSelect }: Props) {
       <MaterialTexture material={material} sizes="(max-width: 640px) 45vw, 300px" />
       {/* Заголовок переносится, а не обрезается: HUG-текст в сузившемся
           контейнере клиппится, и «Лакированная кожа» становится «Лакированна». */}
-      <span className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
+      <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
         {info.title}
       </span>
       <span className="text-[var(--color-text-secondary)]">{info.hint}</span>

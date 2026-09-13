@@ -45,7 +45,7 @@ export function Home() {
                   <MaterialTexture material={m} sizes="(max-width: 640px) 90vw, 22vw" />
                 </span>
                 <span className="flex flex-col sm:justify-center min-w-0">
-                  <span className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
+                  <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
                     {MATERIAL_INFO[m].title}
                   </span>
                   <span className="mt-2 text-[var(--color-text-secondary)]">
@@ -80,12 +80,12 @@ export function Home() {
                     колонкам, которые иначе читаются как три равных абзаца. */}
                 <span
                   aria-hidden
-                  className="absolute right-0 top-6 select-none font-[family-name:var(--font-family-display)] font-extrabold leading-none text-[#F2F1ED14]"
+                  className="absolute right-0 top-6 select-none font-[family-name:var(--font-family-display)] font-semibold leading-none text-[#F2F1ED14]"
                   style={{ fontSize: '3.5rem' }}
                 >
                   {`0${i + 1}`}
                 </span>
-                <p className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
+                <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
                   {title}
                 </p>
                 {/* Вторичный текст на инверсном фоне берёт собственную роль:
@@ -114,7 +114,7 @@ export function Home() {
                     className="group flex items-center gap-4 sm:gap-8 py-5 sm:py-6 transition-colors duration-200 hover:bg-[var(--color-surface)]"
                   >
                     <span className="flex-1 min-w-0">
-                      <span className="block font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
+                      <span className="block font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] leading-[var(--line-height-h3)] tracking-[var(--tracking-display)]">
                         {p.title}
                       </span>
                       <span className="mt-1 block text-[var(--color-text-secondary)]">{p.role}</span>

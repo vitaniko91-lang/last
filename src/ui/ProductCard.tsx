@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="flex flex-col h-full bg-[var(--color-surface)] border border-[var(--color-border-default)] hover:border-[var(--color-accent-base)] transition-colors duration-200"
     >
       <span className="flex items-center justify-center aspect-square bg-[var(--color-surface-alpha-subtle)] px-5">
-        <span className="font-[family-name:var(--font-family-display)] font-extrabold text-[length:var(--font-size-h2)] tracking-[var(--tracking-display)] text-center">
+        <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h2)] tracking-[var(--tracking-display)] text-center">
           {CATEGORY_WORD[product.sku]}
         </span>
       </span>

@@ -46,7 +46,7 @@ export function Product() {
   return (
     <section className="px-5 sm:px-20 py-10 sm:py-16 grid gap-8 lg:grid-cols-[minmax(0,600px)_1fr] lg:gap-16 items-start">
       <div className="flex items-center justify-center aspect-square bg-[var(--color-surface-alpha-subtle)] border border-[var(--color-border-default)] px-6">
-        <span className="font-[family-name:var(--font-family-display)] font-extrabold text-[length:var(--font-size-h1)] tracking-[var(--tracking-display)] text-center">
+        <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h1)] tracking-[var(--tracking-display)] text-center">
           {CATEGORY_WORD[product.sku]}
         </span>
       </div>
@@ -67,7 +67,7 @@ export function Product() {
         )}
 
         <div className="flex flex-wrap items-center gap-4">
-          <p className="font-[family-name:var(--font-family-display)] font-bold text-[length:var(--font-size-h3)] tnum">
+          <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
             {formatRub(product.priceRub)}
           </p>
           <Button onClick={addToCart} className="flex-1 min-w-[200px]">В корзину</Button>
