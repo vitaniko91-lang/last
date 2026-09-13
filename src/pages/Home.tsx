@@ -17,6 +17,7 @@ export function Home() {
       <section className="px-5 sm:px-20 py-16 sm:py-30">
         <Reveal>
           <SectionHead
+            caps
             label="Шаг первый"
             title="Начните с материала вашей вещи"
             lede="Четыре признака, каждый виден глазами или проверяется пальцем. Термины не нужны."
@@ -75,11 +76,13 @@ export function Home() {
   )
 }
 
-function SectionHead({ label, title, lede }: { label: string; title: string; lede: string }) {
+function SectionHead({ label, title, lede, caps }: { label: string; title: string; lede: string; caps?: boolean }) {
   return (
     <div className="max-w-[52ch]">
       <p className="label text-[var(--color-accent-base)]">{label}</p>
-      <h2 className="mt-4">{title}</h2>
+      {/* caps — регистр референса (Spyker): капс с положительным трекингом,
+          там, где секция продолжается главами в том же регистре. */}
+      <h2 className={caps ? 'mt-4 uppercase tracking-[0.04em]' : 'mt-4'}>{title}</h2>
       <p className="mt-4 text-[var(--color-text-secondary)]">{lede}</p>
     </div>
   )
