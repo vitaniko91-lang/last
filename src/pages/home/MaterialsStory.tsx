@@ -105,7 +105,10 @@ export function MaterialsStory() {
                   из {NUMERALS[3]}
                 </span>
               </span>
-              <span className="mt-6 block font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] leading-[var(--line-height-h2)] tracking-[var(--tracking-display)] max-w-[16ch]">
+              {/* Заголовок главы капсом с положительным трекингом — приём
+                  референса (56px / 500 / +2.24px у Spyker). Только главы:
+                  остальные заголовки сайта остаются в обычном регистре. */}
+              <span className="mt-6 block font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] leading-[var(--line-height-h2)] uppercase tracking-[0.04em] max-w-[18ch]">
                 {MATERIAL_INFO[m].title}
               </span>
               <span className="mt-4 block max-w-[38ch] text-[var(--color-text-secondary)]">
