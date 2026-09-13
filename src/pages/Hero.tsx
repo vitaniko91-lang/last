@@ -71,7 +71,7 @@ export function Hero() {
               сколько его хватит, и не предложим того, что материалу навредит.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button href="/configurator" styleName="plate" meta={`${QUESTIONS} вопроса`}>Подобрать уход</Button>
+              <Button href="/configurator" meta={`${QUESTIONS} вопроса`}>Подобрать уход</Button>
               <Button href="/catalogue" styleName="secondary">Смотреть каталог</Button>
             </div>
           </div>

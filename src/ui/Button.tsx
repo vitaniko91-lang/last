@@ -1,25 +1,23 @@
 import { Link } from 'react-router'
 import type { ReactNode } from 'react'
 
-type Style = 'primary' | 'plate' | 'secondary' | 'ghost'
+type Style = 'primary' | 'secondary' | 'ghost'
 
 const BASE =
   'relative inline-flex items-stretch justify-center min-h-10 ' +
   'font-medium text-center cursor-pointer'
 
 /**
- * Три кнопки системы — три предмета, а не три заливки.
- * primary — стекло: акцент с альфой, размытие фона, кромка и блик,
- *   скруглённые углы; главное действие на всех страницах (.btn-glass).
- * plate — пластина под ключевым светом на сцене героя: градиент, блик по
- *   верхней кромке, луч на наведении, ячейка meta с обещанием (.btn-plate).
+ * Две кнопки системы — два предмета, а не две заливки.
+ * primary — стекло: акцент с альфой, размытие того, что за кнопкой, кромка
+ *   и блик, скруглённые углы, луч на наведении; ячейка meta с обещанием
+ *   («4 вопроса») отделена кромкой (.btn-glass).
  * secondary — рамка кадра: два уголка видоискателя, полная рамка проявляется
  *   на наведении; цвет из currentColor, поэтому одна и та же кнопка стоит
  *   и на сцене, и на бумаге (.btn-frame).
  */
 const STYLES: Record<Style, string> = {
   primary: 'btn-glass text-[var(--color-text-on-accent)]',
-  plate: 'btn-plate text-[var(--color-text-on-accent)]',
   secondary: 'btn-frame text-current',
   ghost: 'text-[var(--color-accent-base)] px-0 py-4 hover:text-[var(--color-accent-dark)] transition-colors duration-200',
 }
@@ -30,7 +28,7 @@ interface Props {
   href?: string
   onClick?: () => void
   /** Вторая ячейка пластины: что кнопка обещает — «4 вопроса», «2 минуты».
-   *  Входит в имя ссылки: это часть обещания, а не декор. Только для plate. */
+   *  Входит в имя ссылки: это часть обещания, а не декор. Только для primary. */
   meta?: ReactNode
   /** Недоступно сейчас — но остаётся достижимым с клавиатуры и объясняется
    *  по нажатию. `disabled` убрал бы элемент из порядка обхода, и пользователь
@@ -52,7 +50,7 @@ export function Button({
         <span className="inline-flex items-center px-6 py-4">{children}</span>
         {/* Пробел между ячейками — для имени ссылки: flex его не рисует,
             а читалка без него склеила бы «уход4 вопроса». */}
-        {styleName === 'plate' && meta != null && (
+        {styleName === 'primary' && meta != null && (
           <>
             {' '}
             <span className="btn-plate-meta inline-flex items-center px-4 py-4 tnum">{meta}</span>
