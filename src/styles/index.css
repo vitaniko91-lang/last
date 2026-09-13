@@ -184,6 +184,13 @@
         transparent 70%);
   }
 
+  /* Тень плиты линейки: слово категории читается на любой фактуре. */
+  .hero-plate-shade {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--color-scene) 70%, transparent) 0%,
+      color-mix(in oklab, var(--color-scene) 35%, transparent) 55%,
+      color-mix(in oklab, var(--color-scene) 45%, transparent) 100%);
+  }
   .hero-stage { perspective: 1400px; }
   .hero-plinth { transform-style: preserve-3d; }
   .hero-plinth-top {

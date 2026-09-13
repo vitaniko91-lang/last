@@ -1,5 +1,7 @@
 import { Link } from 'react-router'
 import { CATALOGUE } from '../../kit/catalogue'
+import { MATERIALS } from '../../kit/rules'
+import type { Material } from '../../kit/types'
 import { applicabilityFor } from '../../lib/applicability'
 import { MATERIAL_INFO } from '../../lib/materials'
 import { formatRub } from '../../lib/money'
@@ -14,18 +16,48 @@ import { CATEGORY_WORD } from '../../lib/words'
  * как в каталоге. Материалы под плитой берутся из матрицы, не проставляются
  * руками: второго источника нет.
  */
+/**
+ * Материал плиты: один из подходящих, выбранный по позиции в линейке — четыре
+ * гладких кожи подряд читались бы как одна плита. Без привязки — по кругу
+ * из всех четырёх. Кадрирование тоже идёт по позиции, чтобы одна и та же
+ * фактура не повторялась один в один.
+ */
+function plateMaterial(fits: readonly Material[], i: number): Material {
+  const pool = fits.length > 0 ? fits : MATERIALS
+  return pool[i % pool.length] ?? 'smooth'
+}
+const CROPS = ['30% 40%', '70% 60%', '50% 20%', '20% 70%', '80% 30%'] as const
+
 export function RangePlates() {
   return (
     <ul className="grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
-      {CATALOGUE.map((p) => {
+      {CATALOGUE.map((p, i) => {
         const { fits } = applicabilityFor(p.sku)
+        const material = plateMaterial(fits, i)
         return (
           <li key={p.sku}>
             <Link to={`/product/${p.sku}`} className="group block">
-              <span className="relative flex items-center justify-center aspect-[4/3] bg-[var(--color-surface)] transition-colors duration-200 group-hover:bg-[var(--color-accent-light)]">
+              <span className="relative isolate flex items-center justify-center aspect-[4/3] overflow-hidden bg-[var(--color-inverse)] text-[var(--color-text-on-inverse)]">
+                {/* Фотографии предмета пока нет — плиту держит макро материала,
+                    для которого средство сделано (первый из подходящих; у позиций
+                    без привязки — гладкая кожа как самый частый случай). Это
+                    временная плита: рендеры девяти SKU — в плане, см. imagery-direction. */}
+                <img
+                  src={`/materials/${material}-800.avif`}
+                  srcSet={`/materials/${material}-400.avif 400w, /materials/${material}-800.avif 800w`}
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                  alt=""
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 -z-10 size-full object-cover transition-[scale] duration-[600ms] group-hover:scale-[1.04]"
+                  style={{ objectPosition: CROPS[i % CROPS.length], transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)' }}
+                />
+                <span aria-hidden className="absolute inset-0 -z-10 hero-plate-shade" />
                 {/* Слово категории — заглушка предмета, aria-hidden: имя товара
                     стоит под плитой настоящим текстом. */}
-                <span aria-hidden className="font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] tracking-[var(--tracking-display)] text-center">
+                <span aria-hidden className="font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] uppercase tracking-[0.04em] text-center">
                   {CATEGORY_WORD[p.sku]}
                 </span>
                 {/* Фактуры материалов — в углу плиты, как клеймо. Подпись одна
@@ -46,7 +78,7 @@ export function RangePlates() {
                         height={400}
                         loading="lazy"
                         decoding="async"
-                        className="size-5 object-cover"
+                        className="size-5 object-cover outline outline-1 outline-[var(--color-border-on-inverse)]"
                       />
                     ))}
                   </span>
