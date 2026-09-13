@@ -39,7 +39,7 @@ export function RangePlates() {
         return (
           <li key={p.sku}>
             <Link to={`/product/${p.sku}`} className="group block">
-              <span className="relative isolate flex items-center justify-center aspect-[4/3] overflow-hidden bg-[var(--color-inverse)] text-[var(--color-text-on-inverse)]">
+              <span className="relative isolate flex items-center justify-center aspect-[4/3] overflow-hidden bg-[var(--color-inverse)] border border-[var(--color-border-on-inverse)] text-[var(--color-text-on-inverse)]">
                 {render ? (
                   /* Рендер SKU из папки приёма: квадрат, предмет по центру. */
                   <img
@@ -112,7 +112,7 @@ export function RangePlates() {
                 <span className="tnum shrink-0">{formatRub(p.priceRub)}</span>
               </span>
               {' '}
-              <span className="mt-1 block text-[length:var(--font-size-caption)] text-[var(--color-text-secondary)]">
+              <span className="mt-1 block text-[length:var(--font-size-caption)] text-[var(--color-text-secondary-on-inverse)]">
                 {fits.length === 4 ? 'любой материал' : fits.length === 0 ? 'отдельная позиция' : p.role}
               </span>
             </Link>
