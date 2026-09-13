@@ -46,14 +46,14 @@
   /* radius */
   --radius-none: 0px;
   --radius-full: 9999px; /* Только аватары и точки-индикаторы. 9999, а не INT32_MAX: в Tailwind v4 rounded-full даёт 2147483647px, который Figma зажимает до 16777200 и не привязывает ни к одной переменной */
-  --radius-control: 1.3125rem; /* Стеклянная кнопка: 35% высоты при 60px (21px). Единственное скругление в системе */
+  --radius-control: 0.375rem; /* Стеклянная кнопка: 10% высоты при 60px (6px). Единственное скругление в системе */
 
   /* font-family */
-  --font-family-display: Golos Text, system-ui, sans-serif; /* Одна гарнитура на всю систему. Golos Text — неогротеск с родной кириллицей; Archivo с Google Fonts кириллицы не имеет, и заголовки на русском рендерил системный фолбэк (замер 2026-09-13) */
+  --font-family-display: Wix Madefor Display, system-ui, sans-serif; /* Заголовки и логотип. Выбор дизайнера 2026-09-13 из восьми гротесков с родной кириллицей: характер в терминалах без экзотики. Текст остаётся Golos Text — пара двух гротесков, различимых по пластике, а не по классу */
   --font-family-text: Golos Text, system-ui, sans-serif;
 
   /* font-weight */
-  --font-weight-display-hero: 400;
+  --font-weight-display-hero: 500;
   --font-weight-display: 500;
   --font-weight-text-emphasis: 500;
   --font-weight-text: 400;
@@ -73,7 +73,7 @@
   --line-height-caption: 1.45;
 
   /* tracking */
-  --tracking-display: -0.005em;
+  --tracking-display: -0.015em;
   --tracking-body: 0em;
   --tracking-label: 0.16em; /* Микро-лейбл капсом, 13px, вес 600 */
 }
