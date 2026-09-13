@@ -31,7 +31,7 @@ describe('Button', () => {
   })
 
   it('meta входит в имя ссылки: «4 вопроса» — часть обещания кнопки, а не декор', () => {
-    view(<Button href="/configurator" meta="4 вопроса">Подобрать уход</Button>)
+    view(<Button href="/configurator" styleName="plate" meta="4 вопроса">Подобрать уход</Button>)
     expect(screen.getByRole('link', { name: 'Подобрать уход 4 вопроса' })).toHaveAttribute('href', '/configurator')
   })
 

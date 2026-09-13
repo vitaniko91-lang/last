@@ -75,35 +75,87 @@
   }
 }
 
-/* Кнопки — стекло. Не утилиты Tailwind, потому что у стекла есть слои
-   (подложка, размытие фона, кромка, блик) и переходы на псевдоэлементах, а
-   такое в className не читается. */
+/* Кнопки — предметы сцены. Не утилиты Tailwind, потому что у пластины и рамки
+   есть псевдоэлементы с переходами, а такое в className не читается. */
 @layer components {
-  /* Общее для обоих: размытие того, что за кнопкой, тонкая светлая кромка и
-     блик по верхнему краю — то, чем стекло отличается от заливки. */
-  .btn-glass, .btn-glass-clear {
-    isolation: isolate;
+  /* Пластина: градиент от кромки под светом к тени, блик по верху, тёмная
+     нижняя кромка. На наведении по пластине проходит луч — только translate. */
+  .btn-plate {
+    background: linear-gradient(120deg, var(--color-accent-lit) 0%, var(--color-accent-base) 48%, var(--color-accent-dark) 100%);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--color-text-on-inverse) 24%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, var(--color-scene) 45%, transparent);
     overflow: hidden;
-    backdrop-filter: blur(18px) saturate(150%);
-    -webkit-backdrop-filter: blur(18px) saturate(150%);
-    transition: background-color 200ms cubic-bezier(0.23, 1, 0.32, 1), border-color 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    isolation: isolate;
+  }
+  .btn-plate::after {
+    content: "";
+    position: absolute;
+    inset: -40% -60%;
+    z-index: -1;
+    background: linear-gradient(115deg, transparent 40%, color-mix(in oklab, var(--color-light-key) 22%, transparent) 50%, transparent 60%);
+    translate: -60% 0;
+    transition: translate 600ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .btn-plate:hover::after, .btn-plate:focus-visible::after { translate: 60% 0; }
+  .btn-plate-meta {
+    border-left: 1px solid color-mix(in oklab, var(--color-text-on-inverse) 18%, transparent);
+    font-weight: var(--font-weight-text);
+    color: color-mix(in oklab, var(--color-text-on-accent) 84%, transparent);
   }
 
-  /* Тонированное стекло. Плотность тонировки задаёт контекст: на тёмной
-     сцене 58% — за стеклом читается фактура, а белый текст только темнее
-     подложки. На бумаге те же 58% дали бы ~2.6:1 для белого текста, поэтому
-     по умолчанию 90% (≈5.3:1), и только сцена опускает значение. */
+  /* Рамка кадра: уголки видоискателя. Цвет — currentColor, поэтому кнопка
+     одна и та же на тёмной сцене и на бумаге. */
+  .btn-frame::before, .btn-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid currentColor;
+    transition: translate 240ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .btn-frame::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
+  .btn-frame::after { right: 0; bottom: 0; border-left: 0; border-top: 0; }
+  .btn-frame-rim {
+    position: absolute;
+    inset: 0;
+    border: 1px solid currentColor;
+    opacity: 0;
+    transition: opacity 240ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .btn-frame:hover .btn-frame-rim, .btn-frame:focus-visible .btn-frame-rim { opacity: 1; }
+  .btn-frame:hover::before { translate: -3px -3px; }
+  .btn-frame:hover::after { translate: 3px 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-plate::after, .btn-frame::before, .btn-frame::after, .btn-frame-rim { transition: none; }
+  }
+}
+
+
+/* Кнопка-стекло — главное действие на всех страницах, кроме сцены героя:
+   «В корзину», шаги конфигуратора, корзина. Скруглённые углы — единственное
+   исключение из прямого угла системы, решение дизайнера от 2026-09-13. */
+@layer components {
   .btn-glass {
+    /* Плотность тонировки: на бумаге 90% — белый текст 5.88:1; 58% дали бы
+       2.97:1 и не прошли бы AA. */
     --glass-tint: 90%;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: var(--radius-control);
     background: color-mix(in oklab, var(--color-accent-base) var(--glass-tint), transparent);
     border: 1px solid color-mix(in oklab, var(--color-text-on-inverse) 26%, transparent);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
     box-shadow:
       inset 0 1px 0 color-mix(in oklab, var(--color-text-on-inverse) 38%, transparent),
       inset 0 -1px 0 color-mix(in oklab, var(--color-scene) 35%, transparent),
       0 24px 40px -22px color-mix(in oklab, var(--color-scene) 70%, transparent);
+    transition: background-color 200ms cubic-bezier(0.23, 1, 0.32, 1), border-color 200ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   .btn-glass:hover, .btn-glass:focus-visible {
-    background: color-mix(in oklab, var(--color-accent-base) calc(var(--glass-tint) + 12%), transparent);
+    background: color-mix(in oklab, var(--color-accent-base) calc(var(--glass-tint) + 8%), transparent);
     border-color: color-mix(in oklab, var(--color-text-on-inverse) 42%, transparent);
   }
   /* Луч по стеклу на наведении — только translate. */
@@ -117,38 +169,8 @@
     transition: translate 600ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   .btn-glass:hover::after, .btn-glass:focus-visible::after { translate: 60% 0; }
-  .btn-plate-meta {
-    border-left: 1px solid color-mix(in oklab, var(--color-text-on-inverse) 22%, transparent);
-    font-weight: var(--font-weight-text);
-    color: color-mix(in oklab, var(--color-text-on-accent) 86%, transparent);
-  }
-
-  /* Прозрачное стекло: подложка и кромка от currentColor, поэтому на тёмной
-     сцене это белёсое стекло, на бумаге — серое. Одна кнопка на оба контекста. */
-  .btn-glass-clear {
-    background: color-mix(in oklab, currentColor 8%, transparent);
-    border: 1px solid color-mix(in oklab, currentColor 22%, transparent);
-    box-shadow:
-      inset 0 1px 0 color-mix(in oklab, currentColor 28%, transparent),
-      0 24px 40px -22px color-mix(in oklab, var(--color-scene) 45%, transparent);
-  }
-  .btn-glass-clear:hover, .btn-glass-clear:focus-visible {
-    background: color-mix(in oklab, currentColor 14%, transparent);
-    border-color: color-mix(in oklab, currentColor 40%, transparent);
-  }
-  /* Кромка-блик: диагональный свет по краю, проявляется на наведении. */
-  .btn-frame-rim {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(135deg, color-mix(in oklab, currentColor 14%, transparent) 0%, transparent 45%, transparent 55%, color-mix(in oklab, currentColor 8%, transparent) 100%);
-    opacity: 0;
-    transition: opacity 240ms cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .btn-glass-clear:hover .btn-frame-rim, .btn-glass-clear:focus-visible .btn-frame-rim { opacity: 1; }
-
   @media (prefers-reduced-motion: reduce) {
-    .btn-glass, .btn-glass-clear, .btn-glass::after, .btn-frame-rim { transition: none; }
+    .btn-glass, .btn-glass::after { transition: none; }
   }
 }
 
@@ -171,7 +193,6 @@
         transparent 70%);
   }
 
-  .hero-scene .btn-glass { --glass-tint: 58%; }
   .hero-stage { perspective: 1400px; }
   .hero-plinth { transform-style: preserve-3d; }
   .hero-plinth-top {
