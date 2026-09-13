@@ -16,6 +16,7 @@
   --color-accent-light: #E4EDEA; /* Мягкая подложка, hover */
   --color-accent-dark: #1E403C; /* Active */
   --color-accent-lit: #3D726B; /* Акцент под ключевым светом — верхняя кромка пластины кнопки */
+  --color-accent-on-inverse: #6FA79E; /* Акцент как ТЕКСТ на inverse: лейбл секции, ссылка. Тот же тон 174°, поднята светлота — 6.55:1 на inverse. accent.base там даёт 2.4:1 и не читается; заливкой на тёмном остаётся base (белый на нём 7.44:1) */
   --color-surface-alpha-subtle: #14181A08; /* 3% от text/primary — обычная карточка на ground */
   --color-surface-alpha-accent: #2F5D570F; /* 6% от акцента — выбранная карточка */
   --color-border-divider: #14181A14; /* 8% — разделители */
