@@ -23,4 +23,22 @@ describe('Home', () => {
     view()
     expect(screen.getAllByRole('link', { name: /₽/ })).toHaveLength(9)
   })
+
+  // Ритм секций — спека 2026-09-13-last-section-rhythm-design.md:
+  // герой (scene) → материалы и шаги (ground) → линейка (inverse) → футер (inverse).
+  it('секция шагов — на бумаге, без инверсии', () => {
+    const { container } = view()
+    const how = container.querySelector('section#how')!
+    expect(how.className).not.toMatch(/color-inverse/)
+    // Ни одного вшитого литерала цвета: линии и номера-призраки — через роли.
+    expect(how.innerHTML).not.toMatch(/#F2F1ED/)
+  })
+
+  it('секция линейки — инверсная, лейбл берёт accent/on-inverse', () => {
+    view()
+    const label = screen.getByText('Линейка')
+    const section = label.closest('section')!
+    expect(section.className).toMatch(/color-inverse/)
+    expect(label.className).toMatch(/accent-on-inverse/)
+  })
 })
