@@ -31,7 +31,7 @@ describe('cart', () => {
     const { result } = renderHook(() => useCart(), { wrapper: wrap })
     act(() => result.current.add('spray-suede', 1))
     act(() => result.current.add('kit-suede', 1))
-    expect(result.current.total).toBe(3790)
+    expect(result.current.total).toBe(1880)
   })
 
   it('переживает перезагрузку', () => {

@@ -22,6 +22,6 @@ describe('Cart', () => {
   it('итог считается по количеству', () => {
     window.localStorage.setItem('last.cart', JSON.stringify([{ sku: 'balm', qty: 2 }]))
     view()
-    expect(screen.getAllByText(/3.800 ₽/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/1.780 ₴/).length).toBeGreaterThan(0)
   })
 })

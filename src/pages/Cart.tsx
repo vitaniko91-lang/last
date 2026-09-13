@@ -1,6 +1,6 @@
 import { useCart } from '../state/cart'
 import { bySku } from '../kit/catalogue'
-import { formatRub } from '../lib/money'
+import { formatUah } from '../lib/money'
 import { Button } from '../ui/Button'
 
 export function Cart() {
@@ -47,7 +47,7 @@ export function Cart() {
                   <button type="button" aria-label={`Больше: ${p.title}`} className="w-10 h-10 cursor-pointer"
                           onClick={() => setQty(line.sku, line.shade, line.qty + 1)}>+</button>
                 </div>
-                <p className="font-semibold tnum w-24 text-right">{formatRub(p.priceRub * line.qty)}</p>
+                <p className="font-semibold tnum w-24 text-right">{formatUah(p.priceUah * line.qty)}</p>
                 <button type="button" aria-label={`Убрать ${p.title}`}
                         className="w-10 h-10 text-[var(--color-text-secondary)] cursor-pointer"
                         onClick={() => remove(line.sku, line.shade)}>×</button>
@@ -61,7 +61,7 @@ export function Cart() {
         <div className="flex items-center gap-4">
           <p className="flex-1 font-semibold">Итого</p>
           <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
-            {formatRub(total)}
+            {formatUah(total)}
           </p>
         </div>
         {/* Границу проекта называем на самом экране, а не только в кейсе. */}

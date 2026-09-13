@@ -1,5 +1,5 @@
 import type { Product } from '../kit/types'
-import { formatRub } from '../lib/money'
+import { formatUah } from '../lib/money'
 
 interface Props {
   product: Product
@@ -26,7 +26,7 @@ export function KitLine({ product, removed = false, onRemove, onRestore }: Props
           <p className={`font-semibold ${muted}`}>{product.title}</p>
           <p className="text-[var(--color-text-secondary)]">{product.role}</p>
         </div>
-        <p className={`font-semibold tnum @sm:ml-auto ${muted}`}>{formatRub(product.priceRub)}</p>
+        <p className={`font-semibold tnum @sm:ml-auto ${muted}`}>{formatUah(product.priceUah)}</p>
         {removed ? (
           <button type="button" onClick={onRestore}
                   className="ml-auto @sm:ml-0 min-h-10 px-2 font-semibold text-[var(--color-accent-base)] cursor-pointer">

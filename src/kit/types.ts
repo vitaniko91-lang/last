@@ -25,7 +25,7 @@ export interface Product {
   coverageMonths: number | null
   /** Цена в рублях, целое. Живёт в каталоге, а не в вёрстке:
    *  иначе итог в корзине и итог в конфигураторе однажды разойдутся. */
-  priceRub: number
+  priceUah: number
   /** Оттенки. Только у крема-реноватора, у остальных null. */
   shades: readonly string[] | null
 }

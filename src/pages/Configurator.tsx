@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router'
 import { MATERIALS, TASKS, conflictFor } from '../kit/rules'
 import { bySku } from '../kit/catalogue'
 import { MATERIAL_INFO } from '../lib/materials'
-import { formatRub } from '../lib/money'
+import { formatUah } from '../lib/money'
 import { kitTotal } from '../lib/pricing'
 import { useConfigurator } from '../state/useConfigurator'
 import { useCart } from '../state/cart'
@@ -199,7 +199,7 @@ export function Configurator() {
             <div className="pt-4 border-t border-[var(--color-border-divider)] flex items-center gap-4">
               <p className="flex-1 font-semibold">Итого</p>
               <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
-                {formatRub(total)}
+                {formatUah(total)}
               </p>
             </div>
             <Button onClick={() => { c.items.forEach(p => add(p.sku, 1)); navigate('/cart') }}>

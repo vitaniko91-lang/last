@@ -38,7 +38,7 @@ describe('Configurator', () => {
     await userEvent.click(screen.getByRole('checkbox', { name: /Защитить/ }))
     await userEvent.click(screen.getByRole('radio', { name: 'Каждый день' }))
     expect(screen.getByText(/^2 месяца$/)).toBeInTheDocument()
-    expect(screen.getByText(/3.790 ₽/)).toBeInTheDocument()
+    expect(screen.getByText(/1.880 ₴/)).toBeInTheDocument()
   })
 
   it('график пополнения выключен по умолчанию', async () => {

@@ -21,7 +21,7 @@ describe('Home', () => {
 
   it('линейка показывает все девять позиций с ценами', () => {
     view()
-    expect(screen.getAllByRole('link', { name: /₽/ })).toHaveLength(9)
+    expect(screen.getAllByRole('link', { name: /₴/ })).toHaveLength(9)
   })
 
   // Ритм секций — спека 2026-09-13-last-section-rhythm-design.md:

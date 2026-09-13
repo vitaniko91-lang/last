@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { CATALOGUE } from '../kit/catalogue'
 import { applicabilityFor } from '../lib/applicability'
 import { MATERIAL_INFO } from '../lib/materials'
-import { formatRub } from '../lib/money'
+import { formatUah } from '../lib/money'
 import { productImage } from '../lib/product-images'
 import { CATEGORY_WORD } from '../lib/words'
 import { SwatchPicker } from '../ui/SwatchPicker'
@@ -85,7 +85,7 @@ export function Product() {
 
         <div className="flex flex-wrap items-center gap-4">
           <p className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h3)] tnum">
-            {formatRub(product.priceRub)}
+            {formatUah(product.priceUah)}
           </p>
           <Button onClick={addToCart} className="flex-1 min-w-[200px]">В корзину</Button>
         </div>

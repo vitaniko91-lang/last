@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { formatRub } from './money'
+import { formatUah } from './money'
 
-describe('formatRub', () => {
+describe('formatUah', () => {
   it('разделяет тысячи и ставит знак валюты', () => {
-    expect(formatRub(1490)).toMatch(/^1.490 ₽$/)
-    expect(formatRub(2300)).toMatch(/^2.300 ₽$/)
+    expect(formatUah(1490)).toMatch(/^1.490 ₴$/)
+    expect(formatUah(2300)).toMatch(/^2.300 ₴$/)
   })
   it('не ставит разделитель до тысячи', () => {
-    expect(formatRub(990)).toBe('990 ₽')
+    expect(formatUah(990)).toBe('990 ₴')
   })
 })

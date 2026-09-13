@@ -4,7 +4,7 @@ import { MATERIALS } from '../../kit/rules'
 import type { Material } from '../../kit/types'
 import { applicabilityFor } from '../../lib/applicability'
 import { MATERIAL_INFO } from '../../lib/materials'
-import { formatRub } from '../../lib/money'
+import { formatUah } from '../../lib/money'
 import { productImage } from '../../lib/product-images'
 import { CATEGORY_WORD } from '../../lib/words'
 
@@ -104,12 +104,12 @@ export function RangePlates() {
                 )}
               </span>
               {/* Пробелы между строками — для имени ссылки: без них читалка
-                  склеивает «Крем-реноватор2 100 ₽». */}
+                  склеивает «Крем-реноватор990 ₴». */}
               {' '}
               <span className="mt-3 flex items-baseline justify-between gap-4">
                 <span className="font-medium">{p.title}</span>
                 {' '}
-                <span className="tnum shrink-0">{formatRub(p.priceRub)}</span>
+                <span className="tnum shrink-0">{formatUah(p.priceUah)}</span>
               </span>
               {' '}
               <span className="mt-1 block text-[length:var(--font-size-caption)] text-[var(--color-text-secondary-on-inverse)]">

@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import type { Product } from '../kit/types'
-import { formatRub } from '../lib/money'
+import { formatUah } from '../lib/money'
 import { applicabilityFor } from '../lib/applicability'
 import { MATERIAL_INFO } from '../lib/materials'
 import { productImage } from '../lib/product-images'
@@ -45,7 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
         <span className="font-semibold">{product.title}</span>
         <span className="text-[var(--color-text-secondary)]">{product.role}</span>
         <span className="label text-[var(--color-text-secondary)] mt-auto pt-2">{applic}</span>
-        <span className="font-semibold tnum">{formatRub(product.priceRub)}</span>
+        <span className="font-semibold tnum">{formatUah(product.priceUah)}</span>
       </span>
     </Link>
   )

@@ -27,7 +27,7 @@ describe('Catalogue', () => {
   it('счётчик согласован с числом показанных карточек', async () => {
     view()
     await userEvent.click(screen.getByRole('radio', { name: 'Замша и нубук' }))
-    const n = screen.getAllByRole('link', { name: /₽/ }).length
+    const n = screen.getAllByRole('link', { name: /₴/ }).length
     expect(screen.getByText(new RegExp(`^${n} позици`))).toBeInTheDocument()
   })
 })

@@ -49,7 +49,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     count: lines.reduce((n, l) => n + l.qty, 0),
     // Итог считается из каталога, а не из того, что когда-то положили в строку:
     // цена в строке успела бы устареть.
-    total: lines.reduce((sum, l) => sum + bySku(l.sku).priceRub * l.qty, 0),
+    total: lines.reduce((sum, l) => sum + bySku(l.sku).priceUah * l.qty, 0),
     add: (sku, qty = 1, shade) => setLines(prev => {
       const i = prev.findIndex(l => l.sku === sku && l.shade === shade)
       if (i === -1) return [...prev, { sku, qty, shade }]
