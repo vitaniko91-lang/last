@@ -4,6 +4,7 @@ import { CATALOGUE } from '../kit/catalogue'
 import { applicabilityFor } from '../lib/applicability'
 import { MATERIAL_INFO } from '../lib/materials'
 import { formatRub } from '../lib/money'
+import { productImage } from '../lib/product-images'
 import { CATEGORY_WORD } from '../lib/words'
 import { SwatchPicker } from '../ui/SwatchPicker'
 import { Button } from '../ui/Button'
@@ -27,6 +28,7 @@ export function Product() {
   }
 
   const { fits, doesNotFit } = applicabilityFor(product.sku)
+  const render = productImage(product.sku)
 
   function addToCart() {
     if (!product) return
@@ -45,11 +47,26 @@ export function Product() {
 
   return (
     <section className="px-5 sm:px-20 py-10 sm:py-16 grid gap-8 lg:grid-cols-[minmax(0,600px)_1fr] lg:gap-16 items-start">
-      <div className="flex items-center justify-center aspect-square bg-[var(--color-surface-alpha-subtle)] border border-[var(--color-border-default)] px-6">
-        <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h1)] tracking-[var(--tracking-display)] text-center">
-          {CATEGORY_WORD[product.sku]}
-        </span>
-      </div>
+      {render ? (
+        <img
+          src={render.src}
+          srcSet={render.srcSet}
+          sizes="(max-width: 1024px) 90vw, 600px"
+          alt=""
+          width={render.width}
+          height={render.height}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full aspect-square object-cover bg-[var(--color-inverse)]"
+        />
+      ) : (
+        <div className="flex items-center justify-center aspect-square bg-[var(--color-surface-alpha-subtle)] border border-[var(--color-border-default)] px-6">
+          <span className="font-[family-name:var(--font-family-display)] font-semibold text-[length:var(--font-size-h1)] tracking-[var(--tracking-display)] text-center">
+            {CATEGORY_WORD[product.sku]}
+          </span>
+        </div>
+      )}
 
       <div className="flex flex-col gap-8">
         <div>

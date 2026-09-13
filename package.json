@@ -15,7 +15,8 @@
     "tokens": "node scripts/build-tokens.mjs",
     "qa:responsive": "node scripts/qa/responsive.mjs",
     "qa:shots": "node scripts/qa/screenshots.mjs",
-    "qa:motion": "node scripts/qa/motion.mjs"
+    "qa:motion": "node scripts/qa/motion.mjs",
+    "products": "node scripts/build-products.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

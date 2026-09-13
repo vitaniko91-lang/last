@@ -5,6 +5,7 @@ import type { Material } from '../../kit/types'
 import { applicabilityFor } from '../../lib/applicability'
 import { MATERIAL_INFO } from '../../lib/materials'
 import { formatRub } from '../../lib/money'
+import { productImage } from '../../lib/product-images'
 import { CATEGORY_WORD } from '../../lib/words'
 
 /**
@@ -34,32 +35,50 @@ export function RangePlates() {
       {CATALOGUE.map((p, i) => {
         const { fits } = applicabilityFor(p.sku)
         const material = plateMaterial(fits, i)
+        const render = productImage(p.sku)
         return (
           <li key={p.sku}>
             <Link to={`/product/${p.sku}`} className="group block">
               <span className="relative isolate flex items-center justify-center aspect-[4/3] overflow-hidden bg-[var(--color-inverse)] text-[var(--color-text-on-inverse)]">
-                {/* Фотографии предмета пока нет — плиту держит макро материала,
-                    для которого средство сделано (первый из подходящих; у позиций
-                    без привязки — гладкая кожа как самый частый случай). Это
-                    временная плита: рендеры девяти SKU — в плане, см. imagery-direction. */}
-                <img
-                  src={`/materials/${material}-800.avif`}
-                  srcSet={`/materials/${material}-400.avif 400w, /materials/${material}-800.avif 800w`}
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                  alt=""
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 -z-10 size-full object-cover transition-[scale] duration-[600ms] group-hover:scale-[1.04]"
-                  style={{ objectPosition: CROPS[i % CROPS.length], transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)' }}
-                />
-                <span aria-hidden className="absolute inset-0 -z-10 hero-plate-shade" />
-                {/* Слово категории — заглушка предмета, aria-hidden: имя товара
-                    стоит под плитой настоящим текстом. */}
-                <span aria-hidden className="font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] uppercase tracking-[0.04em] text-center">
-                  {CATEGORY_WORD[p.sku]}
-                </span>
+                {render ? (
+                  /* Рендер SKU из папки приёма: квадрат, предмет по центру. */
+                  <img
+                    src={render.src}
+                    srcSet={render.srcSet}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                    alt=""
+                    width={render.width}
+                    height={render.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 -z-10 size-full object-cover transition-[scale] duration-[600ms] group-hover:scale-[1.04]"
+                    style={{ transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)' }}
+                  />
+                ) : (
+                  <>
+                    {/* Рендера ещё нет — плиту держит макро материала, для
+                        которого средство сделано, и слово категории поверх.
+                        Сборка не зависит от того, пришёл ли файл. */}
+                    <img
+                      src={`/materials/${material}-800.avif`}
+                      srcSet={`/materials/${material}-400.avif 400w, /materials/${material}-800.avif 800w`}
+                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                      alt=""
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 -z-10 size-full object-cover transition-[scale] duration-[600ms] group-hover:scale-[1.04]"
+                      style={{ objectPosition: CROPS[i % CROPS.length], transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)' }}
+                    />
+                    <span aria-hidden className="absolute inset-0 -z-10 hero-plate-shade" />
+                    {/* Слово категории — заглушка предмета, aria-hidden: имя товара
+                        стоит под плитой настоящим текстом. */}
+                    <span aria-hidden className="font-[family-name:var(--font-family-display)] font-medium text-[length:var(--font-size-h2)] uppercase tracking-[0.04em] text-center">
+                      {CATEGORY_WORD[p.sku]}
+                    </span>
+                  </>
+                )}
                 {/* Фактуры материалов — в углу плиты, как клеймо. Подпись одна
                     на всю группу: четыре подряд озвученные картинки — шум. */}
                 {fits.length > 0 && fits.length < 4 && (
