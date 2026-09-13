@@ -25,7 +25,7 @@ export function Hero() {
   const stage = useStage(MARKS)
 
   return (
-    <section className="relative isolate overflow-hidden bg-[var(--color-scene)] text-[var(--color-text-on-inverse)]">
+    <section className="hero-scene relative isolate overflow-hidden bg-[var(--color-scene)] text-[var(--color-text-on-inverse)]">
       {/* Плита — LCP-элемент: объявлена в разметке, грузится eager и с высоким
           приоритетом. Ленивая загрузка здесь откладывала бы самый важный запрос.
           Кадр 1778 в ширину — максимум, что отдаёт сток для этого снимка;

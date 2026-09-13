@@ -8,16 +8,15 @@ const BASE =
   'font-medium text-center cursor-pointer'
 
 /**
- * Две кнопки системы — два предмета сцены, а не две заливки.
- * primary — пластина под ключевым светом (градиент, блик по верхней кромке,
- * луч на наведении); стили в index.css → .btn-plate.
- * secondary — рамка кадра: два уголка видоискателя, полная рамка проявляется
- * на наведении; цвет берётся из currentColor, поэтому одна и та же кнопка
- * стоит и на сцене, и на бумажном ground.
+ * Две кнопки системы — два стекла, а не две заливки.
+ * primary — тонированное стекло: акцент на 58%, за ним размытая сцена, блик
+ * по верхней кромке, луч на наведении; стили в index.css → .btn-glass.
+ * secondary — прозрачное стекло: подложка и кромка от currentColor, поэтому
+ * одна и та же кнопка стоит и на тёмной сцене, и на бумажном ground.
  */
 const STYLES: Record<Style, string> = {
-  primary: 'btn-plate text-[var(--color-text-on-accent)]',
-  secondary: 'btn-frame text-current',
+  primary: 'btn-glass text-[var(--color-text-on-accent)]',
+  secondary: 'btn-glass-clear text-current',
   ghost: 'text-[var(--color-accent-base)] px-0 py-4 hover:text-[var(--color-accent-dark)] transition-colors duration-200',
 }
 
